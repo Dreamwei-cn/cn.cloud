@@ -5,6 +5,7 @@
     <artifactId>cn.cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>cn.cloud.common</groupId>
+
   <artifactId>cn.cloud.common</artifactId>
+  <groupId>cn.cloud</groupId>
 </project>
