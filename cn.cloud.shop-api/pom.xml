@@ -11,5 +11,18 @@
   <modules>
   	<module>cn.cloud.user-api</module>
   	<module>cn.cloud.goods-api</module>
+  	<module>cn.cloud.order-api</module>
   </modules>
+  <dependencies>
+  	<dependency>
+  		<groupId>cn.cloud.common</groupId>
+  		<artifactId>cn.cloud.common</artifactId>
+  		<version>1.0.0</version>
+  	</dependency>
+  	<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+	</dependency>
+  </dependencies>
 </project>

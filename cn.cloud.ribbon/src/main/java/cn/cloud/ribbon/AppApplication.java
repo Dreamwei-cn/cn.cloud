@@ -1,4 +1,4 @@
-package cn.cloud.api;
+package cn.cloud.ribbon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,5 +12,6 @@ public class AppApplication {
 		SpringApplication.run(AppApplication.class, args);
 		
 	}
+	
 
 }
