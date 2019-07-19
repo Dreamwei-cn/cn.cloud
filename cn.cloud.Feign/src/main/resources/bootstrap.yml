@@ -1,10 +1,21 @@
 server:
-  port: 8763
+  port: 8768
 
 spring:
   application:
-    name: service-goods
+    name: service-feign  main:    allow-bean-definition-overriding: true
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+      
+      
+feign:  client:    config:      default:  # 默认所有服务
+        connect-timeout: 10000        read-timeout: 60000        logger-level: full # full    basic  none   headers
+  # 连接池使用     httpclient:    enabled: true
+  okhttp:    enabled: false
+      hystrix:    enabled: true
+#service-user:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule    
+         
