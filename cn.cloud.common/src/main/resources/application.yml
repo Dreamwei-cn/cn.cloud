@@ -9,7 +9,3 @@ spring:
     pool:
       enabled: true
       max-connections: 100
-
-queueName: myqueue
-topicName: mytopic
-    

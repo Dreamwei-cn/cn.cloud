@@ -24,7 +24,7 @@ public class ActiveMqConfig {
 	}
 	
 	@Bean
-	public Topic topic() {
+	public Topic Topic() {
 		return new ActiveMQTopic(TOPICNAME);
 	}
 	
@@ -36,9 +36,5 @@ public class ActiveMqConfig {
 		containerFactory.setConnectionFactory(activeMQConnectionFactory);
 		return containerFactory;
 	}
-	
-	
-	
-	
 
 }
