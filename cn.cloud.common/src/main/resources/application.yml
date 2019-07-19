@@ -1,0 +1,15 @@
+spring:
+  jms:
+    pub-sub-domain: true
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    in-memory: true
+    pool:
+      enabled: true
+      max-connections: 100
+
+queueName: myqueue
+topicName: mytopic
+    
