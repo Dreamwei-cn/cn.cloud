@@ -1,0 +1,132 @@
+
+server:
+  connection-timeout: 25
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+    
+  datasource:
+    url: jdbc:mysql://localhost:3306/bootdream?useUnicode=true&serverTimezone=GMT%2B8&characterEncoding=UTF-8&useSSL=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull
+    username: user
+    password: HUdxRfrdJtcv70P4zh6M37DVZxQ6ZtXUIXYGCS6upBvSO2d0X/PNtuA4a75jBfurppCiMEOfmFv5802mDCRyJQ==
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+     #    2.0之后新特性 不加就不会自动建表
+    initialization-mode: always
+    druid:
+    # 初始化 大小 最小 最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 10000
+      #配置间隔多久启动一次DestroyThread，对连接池内的连接才进行一次检测，单位是毫秒。
+       #检测时:1.如果连接空闲并且超过minIdle以外的连接，如果空闲时间超过minEvictableIdleTimeMillis设置的值则直接物理关闭。
+       #2.在minIdle以内的不处理
+      time-between-eviction-runs-millis: 600000
+       #最大空闲时间
+      min-evictable-idle-time-millis: 300000
+      #增强timeBetweenEvictionRunsMillis的周期性连接检查，
+      #minIdle内的空闲连接，每次检查强制验证连接有效性.
+      keep-alive: true
+      #连接泄露检查，打开removeAbandoned功能 , 连接从连接池借出后，长时间不归还，将触发强制回连接。
+      #如果连接为从连接池借出状态，并且未执行任何sql，并且从借出时间起已超过removeAbandonedTimeout时间，则强制归还连接到连接池中。
+      remove-abandoned: true
+      #超时时间 秒
+      remove-abandoned-timeout: 120
+      
+      #从连接池获取连接  归还连接，每次检查有效性
+      test-on-borrow: false
+      test-on-return: false
+      #获取连接时是否检查连接有效性，true时，如果连接空闲时间超过minEvictableIdleTimeMillis进行检查，否则不检查;false时，不检查
+      test-while-idle: true
+      #检验连接是否有效的查询语句。
+      #如果数据库Driver支持ping()方法，则优先使用ping()方法进行检查，
+      #否则使用validationQuery查询进行检查
+      validation-query: select 1 from dual
+      
+      
+                    # 打开psCache  指定每个连接PSCache的大小   支持游标提升性能
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+                  #关闭abanded连接时输出错误日志，这样出现连接泄露时可以通过错误日志定位忘记关闭连接的位置 
+      log-abandoned: true
+      
+                   #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connect-properties:
+        config.decrypt: true
+        config.decrypt.key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJ0LA31uve1PEWb5zzPZc8RvuryzpEj6Y4BhJYCqKeAL/mPRfEngSoy43xsjnwA02VBtvM0EY1gg+uuO4IJZ2DECAwEAAQ==
+        
+                   # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙 启动了监控统计、SQL防火墙、日志记录和Config。
+      filters: stat,wall,log4j2,config
+                    #输出日志间隔
+      time-between-log-stats-millis: 5000
+      #合并多个DruidDataSource的监控数据  timeBetweenLogStatsMillis not support useGlobalDataSourceStat=true
+  #    use-global-data-source-stat: true
+    
+    
+     # 开启监控 
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+#        allow: loaclhost
+        deny: 192.168.200.104
+        url-pattern: /druid/*
+        reset-enable: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        session-stat-enable: false
+        session-stat-max-count: 1000
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        principal-session-name: admin
+        principal-cookie-name: amdin
+        profile-enable: true
+      filter:
+      #慢sql记录
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        config:
+          enabled: true #  数据库过滤    密码加密
+
+
+        
+      
+  http:
+    encoding:
+      charset: UTF-8
+      
+      
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15000
+
+
+mybatis:
+ #pojo类所在包路径
+  type-aliases-package: cn.cloud.api.user.entity
+  mapper-locations:
+  - classpath:mapper/*xml
+    
+mapper:
+  mappers:
+  - cn.cloud.api.utils.base.MyMapper
+  not-empty: false
+  identity: MYSQL   
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+      
+queueName: myqueue
+topicName: mytopic
+    

@@ -2,9 +2,12 @@ package cn.cloud.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+
+import tk.mybatis.spring.annotation.MapperScan;
+@SpringBootApplication
+@MapperScan(basePackages ="cn.cloud.api.user.mapper")
 @EnableEurekaClient
 public class AppApplication {
 	
