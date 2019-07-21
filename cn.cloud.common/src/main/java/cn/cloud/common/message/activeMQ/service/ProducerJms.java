@@ -18,8 +18,7 @@ public class ProducerJms {
 	
 	public void sendQueueMsg(String destinationName,String mesageString) {
 		Destination destination = new ActiveMQQueue(destinationName);
-		jmsTemplate.send(destination, new MessageCreator() {
-			
+		jmsTemplate.send(destination, new MessageCreator() {			
 			@Override
 			public javax.jms.Message createMessage(Session session) throws JMSException {
 				TextMessage textMessage = session.createTextMessage(mesageString);
