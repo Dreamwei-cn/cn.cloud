@@ -5,12 +5,13 @@
     <artifactId>cn.cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-
+  <groupId>cn.cloud.shop-api</groupId>
   <artifactId>cn.cloud.shop-api</artifactId>
   <packaging>pom</packaging>
   <modules>
   	<module>cn.cloud.user-api</module>
   	<module>cn.cloud.goods-api</module>
+  	<module>cn.cloud.order-api</module>
   </modules>
   <dependencies>
   	<dependency>
