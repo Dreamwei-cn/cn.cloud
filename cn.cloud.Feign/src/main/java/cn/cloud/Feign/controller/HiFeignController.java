@@ -17,4 +17,8 @@ public class HiFeignController {
 	public String sayHi(@RequestParam String name) {
 		return schedualSercieHi.sayHiFromClientOne(name);
 	}
+	@RequestMapping(value = "/hi",method = RequestMethod.GET)
+	public String sayHiOrder(@RequestParam String name) {
+		return schedualSercieHi.sayHiFromClientOne(name);
+	}
 }
