@@ -9,8 +9,11 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 
 @Configuration
 public class HttpPool {	
@@ -53,5 +56,14 @@ public class HttpPool {
 		}, 10*1000, 5*1000);
 		return client;
 	}
-
+	
+	   @Bean
+	    public ServletRegistrationBean getServlet() {
+	        HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+	        ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+	        registrationBean.setLoadOnStartup(1);
+	        registrationBean.addUrlMappings("/actuator/hystrix.stream");
+	        registrationBean.setName("HystrixMetricsStreamServlet");
+	        return registrationBean;
+	    }
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8768
+  port: 8765
 
 spring:
   application:
@@ -15,6 +15,12 @@ feign:  client:    config:      default:  # 默认所有服务
   # 连接池使用     httpclient:    enabled: true
   okhttp:    enabled: false
       hystrix:    enabled: true
+    
+    
+management:  endpoints:    web:      exposure:        include:        - heakth
+        - info
+        - hystrix.stream
+
 #service-user:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule    
