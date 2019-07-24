@@ -17,6 +17,7 @@
   	<module>cn.cloud.shop-api</module>
   	<module>cn.cloud.ribbon</module>
   	<module>cn.cloud.Feign</module>
+  	<module>cn.cloud.Zuul</module>
   </modules>
   
   
