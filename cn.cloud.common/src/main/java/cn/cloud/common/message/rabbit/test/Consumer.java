@@ -26,24 +26,43 @@ public class Consumer {
 		Connection connection =  connectionFactory.newConnection();
 
 		Channel channel = connection.createChannel();
+		com.rabbitmq.client.Consumer consumer = new simpleConsumer(channel);
+		//testreciver(channel,consumer);
+		directExchange(channel, consumer);
+
+	}
+	
+	
+	public static void testreciver(Channel channel,com.rabbitmq.client.Consumer consumer) throws IOException {
 		String queue = "test01";
-		
-		
 		channel.queueDeclare(queue, true, false, false, null);
-		 //每次从队列获取的数量
-		com.rabbitmq.client.Consumer consumer = new DefaultConsumer(channel) {
-			 @Override
-	            public void handleDelivery(String consumerTag, Envelope envelope,
-	                                       AMQP.BasicProperties properties, byte[] body)
-	                    throws IOException {
-	                String message = new String(body, "UTF-8");
-	                System.out.println("Customer Received '" + message + "'" +  consumerTag);
-	           
-	            }
-		};
 		channel.basicConsume(queue, true, consumer);
+	}
+	public static void directExchange(Channel channel,com.rabbitmq.client.Consumer consumer) throws IOException {
+		String exchangeName = "test_direct_ex";
+		String exchangeType = "direct";
+		String queueName =channel.queueDeclare().getQueue();
+		String routingKey  = "test_direct";
+		channel.exchangeDeclare(exchangeName, exchangeType, true, false, false, null);
+		channel.queueDeclare(queueName, false, false, false, null);
+		channel.queueBind(queueName, exchangeName, routingKey);
+		channel.basicConsume(queueName, true, consumer);
+	}
+	private static class simpleConsumer extends DefaultConsumer {
 
-
+		public simpleConsumer(Channel channel) {
+			super(channel);
+		}
+		
+		 @Override
+         public void handleDelivery(String consumerTag, Envelope envelope,
+                                    AMQP.BasicProperties properties, byte[] body)
+                 throws IOException {
+             String message = new String(body, "UTF-8");
+             System.out.println("Customer Received '" + message + "'" +  consumerTag);
+        
+         }
+		
 	}
 
 }
