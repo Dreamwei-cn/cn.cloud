@@ -12,6 +12,7 @@
   	<module>cn.cloud.user-api</module>
   	<module>cn.cloud.goods-api</module>
   	<module>cn.cloud.order-api</module>
+  	<module>cn.cloud.logistics-api</module>
   </modules>
   <dependencies>
   	<dependency>

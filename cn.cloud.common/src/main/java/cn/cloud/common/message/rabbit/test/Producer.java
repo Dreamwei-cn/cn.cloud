@@ -1,3 +1,4 @@
+
 package cn.cloud.common.message.rabbit.test;
 
 import java.io.IOException;

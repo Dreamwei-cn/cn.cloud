@@ -18,5 +18,18 @@ public class HelloController {
 		
 		return hService.userService(name);
 	}
+	
+	@RequestMapping("/higoods")
+	public String hiGoods(@RequestParam String name) {
+		
+		return hService.goodsService(name);
+	}
+	@RequestMapping("/hilogistics")
+	public String hiLogistics(@RequestParam String name) {
+		
+		return hService.logisticsService(name);
+	}
+
+
 
 }

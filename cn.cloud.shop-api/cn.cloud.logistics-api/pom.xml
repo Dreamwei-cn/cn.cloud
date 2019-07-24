@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>cn.cloud</groupId>
-    <artifactId>cn.cloud</artifactId>
+    <groupId>cn.cloud.shop-api</groupId>
+    <artifactId>cn.cloud.shop-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>cn.cloud.eureka-server</groupId>
-  <artifactId>cn.cloud.eureka-server</artifactId>
+  <groupId>cn.cloud.logistics-api</groupId>
+  <artifactId>cn.cloud.logistics-api</artifactId>
 </project>

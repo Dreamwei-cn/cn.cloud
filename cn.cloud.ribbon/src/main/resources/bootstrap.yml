@@ -5,3 +5,5 @@ spring:  application:    name: service-ribbon
 
 # 设置    负载均衡规则
 service-user.ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
+
+service-goods.ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
