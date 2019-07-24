@@ -24,6 +24,12 @@ public class HelloController {
 		
 		return hService.goodsService(name);
 	}
+	@RequestMapping("/hilogistics")
+	public String hiLogistics(@RequestParam String name) {
+		
+		return hService.logisticsService(name);
+	}
+
 
 
 }
