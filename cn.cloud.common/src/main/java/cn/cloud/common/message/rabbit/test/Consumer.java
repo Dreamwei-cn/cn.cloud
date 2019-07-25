@@ -41,14 +41,21 @@ public class Consumer {
 	}
 	public static void directExchange(Channel channel,com.rabbitmq.client.Consumer consumer) throws IOException {
 		String exchangeName = "test_direct_ex";
-		String exchangeType = "direct";
 		String queueName =channel.queueDeclare().getQueue();
 		String routingKey  = "test_direct";
-		channel.exchangeDeclare(exchangeName, exchangeType, true, false, false, null);
-		channel.queueDeclare(queueName, false, false, false, null);
 		channel.queueBind(queueName, exchangeName, routingKey);
 		channel.basicConsume(queueName, true, consumer);
 	}
+	public static void topicExcheng(Channel channel,com.rabbitmq.client.Consumer consumer) throws IOException {
+		
+		String exchengeName = "topic_ex";
+		String exchengeType ="topic";
+		String queueName = channel.queueDeclare().getQueue();
+	}
+	
+	
+	
+	
 	private static class simpleConsumer extends DefaultConsumer {
 
 		public simpleConsumer(Channel channel) {
