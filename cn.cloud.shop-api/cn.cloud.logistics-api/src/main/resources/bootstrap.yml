@@ -3,6 +3,7 @@ server:
   port: 8766
 
 eureka:
+  instance:    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
@@ -16,4 +17,9 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource  cloud:    config:      label: master
+      profile: dev
+      discovery:
+        enabled: true        service-id: cloud-config
+management:  endpoints:    web:      exposure:
+        include:        - refresh       
