@@ -1,0 +1,15 @@
+server:
+  port: 8767
+  
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+      
+spring:  application:    name: cloud-config  cloud:    config:      server:        git:          uri: https://github.com/CNMWDream/springCloud-config/
+          search-paths:          - cncloud
+      label: master
+      username: 
+      password: 
