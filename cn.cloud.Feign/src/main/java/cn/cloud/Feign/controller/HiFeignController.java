@@ -18,8 +18,9 @@ public class HiFeignController {
 	private SchedualSercieHi schedualSercieHi;
 	@Autowired
 	private  SchedualGoods schedualGoods;
-	
+	@Autowired
 	private SchedualLogistics schedualLogistics;
+	
 	@RequestMapping(value = "/user",method = RequestMethod.GET)
 	public String sayHi(@RequestParam String name) {
 		return schedualSercieHi.sayHiFromClientOne(name);

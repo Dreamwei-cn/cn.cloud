@@ -1,0 +1,15 @@
+server:
+  port: 8768
+  
+  
+eureka:
+  instance:    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+      
+spring:  application:    name: cloud-config
+  profiles:    active:    - native
+  cloud:    config:      server:        native:          search-locations:          - file:///F:/appsts4/springCloud-config/
+          

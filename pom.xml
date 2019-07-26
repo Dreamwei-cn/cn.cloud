@@ -18,6 +18,7 @@
   	<module>cn.cloud.ribbon</module>
   	<module>cn.cloud.Feign</module>
   	<module>cn.cloud.Zuul</module>
+  	<module>cn.cloud.ZconfiService</module>
   </modules>
   
   
@@ -123,7 +124,15 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
 		</dependency>
-		
+		<!--cloud config -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
 		
 		
 		
