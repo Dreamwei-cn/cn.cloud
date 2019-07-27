@@ -1,3 +1,14 @@
-server:
-  port: 8080
-  servlet:    context-path: /
+spring:
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15000
+
+
+  http:
+    encoding:
+      charset: UTF-8
+    
+  

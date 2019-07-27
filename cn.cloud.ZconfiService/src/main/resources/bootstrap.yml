@@ -10,6 +10,8 @@ eureka:
 
       
 spring:  application:    name: cloud-config
-  profiles:    active:    - native
-  cloud:    config:      server:        native:          search-locations:          - file:///F:/appsts4/springCloud-config/
+  cloud:    config:      server:        git:          uri: https://github.com/CNMWDream/springCloud-config.git
+          default-label: master
+          username: 73589711@qq.com
+          password: gb0304080225
           
