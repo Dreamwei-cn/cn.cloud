@@ -3,14 +3,15 @@ server:
   
   
 eureka:
-  instance:    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
       
 spring:  application:    name: cloud-config
-  cloud:    config:      server:        git:          uri: https://github.com/CNMWDream/springCloud-config.git
+  profiles:    active:    - git
+  cloud:    config:
+      enabled: true      server:        git:          uri: https://github.com/CNMWDream/springCloud-config.git
           default-label: master
           username: 73589711@qq.com
           password: gb0304080225

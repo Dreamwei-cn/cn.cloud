@@ -1,27 +1,14 @@
 
-server:
-  port: 8766
-
-eureka:
-  instance:    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-
-
-spring:
-  application:
-    name: service-logistics
-  datasource: 
-    url: jdbc:mysql://localhost:3306/bootdream?useUnicode=true&serverTimezone=GMT%2B8&characterEncoding=UTF-8&useSSL=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource  cloud:    config:      label: master
+spring:  cloud:    config:
+      enabled: true
+      uri:      - http://localhost:8768/      name: service-logistics
       profile: dev
-      uri:      - http://localhost:8768/
-      username: 735789711@qq.com
-      password: gb0304080225
-      enabled: true      name: service-logistics      
-management:  endpoints:    web:      exposure:
-        include:        - refresh       
+      label: master
+
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - refresh
