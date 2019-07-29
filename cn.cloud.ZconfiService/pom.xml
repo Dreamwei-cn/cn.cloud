@@ -7,4 +7,14 @@
   </parent>
   <groupId>cn.cloud.ZconfiService</groupId>
   <artifactId>cn.cloud.ZconfiService</artifactId>
+  
+  <dependencies>
+  		<!--cloud config -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+  
+  
+  </dependencies>
 </project>
