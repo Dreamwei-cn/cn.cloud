@@ -8,7 +8,6 @@
   <groupId>cn.cloud.ZconfiService</groupId>
   <artifactId>cn.cloud.ZconfiService</artifactId>
   
-  
   <dependencies>
   		<!--cloud config -->
 		<dependency>
