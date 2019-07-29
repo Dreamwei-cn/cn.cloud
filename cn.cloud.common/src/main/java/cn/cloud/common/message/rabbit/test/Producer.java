@@ -23,8 +23,9 @@ public class Producer {
 		Channel channel = connection.createChannel();
 		
 //		testSend(channel);
-		directExchange(channel);
-		
+//		directExchange(channel);
+//		topicExcheng(channel);
+		fanoutExcheng(channel);
 		channel.close();
 		connection.close();
 
@@ -55,7 +56,7 @@ public class Producer {
 	}
 	
 	
-public static void topicExcheng(Channel channel) throws IOException {
+	public static void topicExcheng(Channel channel) throws IOException {
 		
 		String exchengeName = "topic_ex";
 		String routingKey1 = "user.save";
@@ -63,6 +64,17 @@ public static void topicExcheng(Channel channel) throws IOException {
 		String msgString = " Topic  message ";
 		channel.basicPublish(exchengeName, routingKey1, null, (msgString+routingKey1).getBytes());
 		channel.basicPublish(exchengeName, routingKey2, null, (msgString+routingKey2).getBytes());
+		System.out.println(" 发出 topic " + msgString );
+	}
+	
+	public static void fanoutExcheng(Channel channel) throws IOException {
+		
+		String exchengeName = "fanout_ex";
+		String msgString = " fanout  message ";
+		String routingKey = "11";
+		channel.basicPublish(exchengeName, routingKey, null, (msgString+routingKey).getBytes());
+
+		System.out.println(" 发出 fanout " + msgString );
 	}
 
 }
