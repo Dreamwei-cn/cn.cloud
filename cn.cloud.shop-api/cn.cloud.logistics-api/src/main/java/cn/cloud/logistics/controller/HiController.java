@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+//用于刷新
 @RefreshScope
+
 @RequestMapping("/logistics")
 public class HiController {
 //	
