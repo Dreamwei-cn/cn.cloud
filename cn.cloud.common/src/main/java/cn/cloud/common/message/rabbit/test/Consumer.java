@@ -17,6 +17,14 @@ import com.rabbitmq.client.Envelope;
 
 
 
+/**
+ * @author Dream
+ * 
+ * rabbit 限流
+ * 
+ * nack 
+ *
+ */
 public class Consumer {
 	
 	public static void main(String[] args) throws IOException, TimeoutException {

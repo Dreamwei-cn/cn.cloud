@@ -10,6 +10,11 @@ spring:
       client:
         url:
         - http://localhost:8781
+        username: admin
+        password: admin
+        instance:          service-base-url: http://localhost:${server.port}
+
+
 
 server:
   port: 8771
@@ -23,7 +28,7 @@ management:
   endpoint:
     health:
       show-details: always
-      
+   
 eureka:
   client:
     service-url:
