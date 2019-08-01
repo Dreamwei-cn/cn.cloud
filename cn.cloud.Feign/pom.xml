@@ -7,4 +7,17 @@
   </parent>
   <groupId>cn.cloud.Feign</groupId>
   <artifactId>cn.cloud.Feign</artifactId>
+  
+  <dependencies>
+  		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<!-- feign  使用线程池 -->
+		<dependency>
+     		<groupId>io.github.openfeign</groupId>
+     		<artifactId>feign-httpclient</artifactId>
+  		</dependency>
+
+  </dependencies>
 </project>

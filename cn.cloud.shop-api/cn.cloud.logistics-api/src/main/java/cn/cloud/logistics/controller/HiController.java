@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/logistics")
 public class HiController {
-//	
-//	@Value("${server.port}")
-//	private String port;
-//	
-//	@RequestMapping("/getLogistics")
-//	public String getLogistics(@RequestParam String name) {
-//		
-//		
-//		return name + " come from " + port;
-//	}
+	
+	@Value("${server.port}")
+	private String port;
+	
+	@RequestMapping("/getLogistics")
+	public String getLogistics(@RequestParam String name) {
+		
+		
+		return name + " come from " + port;
+	}
 	@Value("${namelogis}")
 	private String name;
 	

@@ -11,6 +11,7 @@ spring:
     name: cloud-config
   cloud:
     config:
+      enabled: true
       server:
         git:
           uri: https://github.com/CNMWDream/springCloud-config
