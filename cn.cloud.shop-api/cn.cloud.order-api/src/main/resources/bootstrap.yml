@@ -14,6 +14,16 @@ spring:
         password: admin
         instance:          service-base-url: http://localhost:${server.port}
 
+---
+spring:  rabbitmq:    addresses: localhost:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15000
+    publisher-confirms: true
+    publisher-returns: true
+    template:      mandatory: true
+      
 
 
 server:
