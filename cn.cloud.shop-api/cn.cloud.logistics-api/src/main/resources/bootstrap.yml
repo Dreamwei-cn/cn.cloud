@@ -13,6 +13,7 @@ spring:
       profile: dev
 #      uri:
 #      - http://localhost:8768/
+      enabled: true
       discovery:
         enabled: true
         service-id: cloud-config
@@ -20,8 +21,34 @@ spring:
       enabled: true
       trace:
         enabled: true
+      
         
-
+---
+spring:
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15000
+    
+    
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 5
+        max-concurrency: 10
+      order:
+        queue:
+          name: queue-2
+          durable: true
+        exchange:
+          name: exchange-1
+          durable: true
+          type: topic
+          ignoreDeclarationExceptions: true
+          key: springboot.*
+      
         
 management:
   endpoints:

@@ -7,6 +7,10 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+/**
+ * @author Dream
+ * 消费限流        ack
+ */
 public class Consumer {
 	public static Channel getChannel() throws IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
