@@ -19,6 +19,8 @@ eureka:
     metadata-map:      user.name： user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
 
+
+
  # spring boot admin      
 management:  endpoints:    web:      exposure:        include:        - "*"
   endpoint:    health:      show-details: always
