@@ -1,10 +1,16 @@
 package cn.cloud.common.model;
 
+import java.io.Serializable;
+
 /**
  * @author Dream
  *  rabbit  消息发送类 
  */
-public class Order {
+public class Order implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private  String id;
 	private String name;
 	public String getId() {

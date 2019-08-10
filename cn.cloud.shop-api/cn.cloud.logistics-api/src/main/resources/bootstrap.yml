@@ -43,12 +43,12 @@ spring:
           name: queue-2
           durable: true
         exchange:
-          name: exchange-1
+          name: exchange-2
           durable: true
           type: topic
           ignoreDeclarationExceptions: true
           key: springboot.*
-      
+     
         
 management:
   endpoints:
