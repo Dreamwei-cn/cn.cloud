@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import cn.cloud.api.order.service.RabbitSender;
+import cn.cloud.common.model.Order;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -38,7 +39,20 @@ public class TestAdmin {
 		
 		properties.put("number", "111");
 		rabbitSender.send("Hello RabbitMq form  Spring boot ", properties);
+		
+		
 	}
+	@Test
+	public  void testSendOrder() {
+		Order order = new Order();
+		order.setId("aaaaa123414 order");
+		Map<String, Object> properties = new HashMap<>();
+		properties.put("order", "this is order");
+		rabbitSender.sendOrder(order);
+		
+		
+	}
+	
 	
 
 }

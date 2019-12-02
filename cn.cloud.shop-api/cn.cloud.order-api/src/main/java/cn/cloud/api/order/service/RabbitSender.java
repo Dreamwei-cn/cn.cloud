@@ -12,6 +12,8 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
+import cn.cloud.common.model.Order;
+
 
 
 @Service
@@ -51,5 +53,14 @@ public class RabbitSender {
 		CorrelationData correlationData = new CorrelationData();
 		correlationData.setId("123456");// 真实业务全局唯一
 		rabbitTemplate.convertAndSend("exchange-1", "springboot.hello", message,correlationData);
+	}	
+	
+	public void sendOrder(Order order) {
+
+		rabbitTemplate.setConfirmCallback(confirmCallback);
+		rabbitTemplate.setReturnCallback(returnCallback);
+		CorrelationData correlationData = new CorrelationData();
+		correlationData.setId("123456 order");// 真实业务全局唯一
+		rabbitTemplate.convertAndSend("exchange-2", "springboot.hello", order,correlationData);
 	}
 }
