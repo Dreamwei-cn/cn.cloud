@@ -17,4 +17,6 @@ public class SysUserServiceImpl implements SysUserService {
 		SysUser sysUser = sysUserMapper.selectByPrimaryKey(id);
 		return sysUser;
 	}
+	
+	
 }

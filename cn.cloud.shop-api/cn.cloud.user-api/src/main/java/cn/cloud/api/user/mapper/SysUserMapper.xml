@@ -20,4 +20,50 @@
     <result column="lastLonginTime" jdbcType="TIMESTAMP" property="lastlongintime" />
     <result column="lastLonginPlace" jdbcType="VARCHAR" property="lastlonginplace" />
   </resultMap>
+  
+  <sql id="table">sys_user</sql>
+  
+  <sql id="Base_Column_List">
+ 	id,personid,roleid,name,loginname,password,createDate,enabled,status,updateDate,creator,updator,lastLonginTime,lastLonginPlace
+  </sql>
+  
+  <sql id="Alias_base_Column_List">
+  	${alias}.id,${alias}.roleid,${alias}.name
+  </sql>
+  
+  <sql id="selectUserList_Where" >
+  	<if test="names != null">
+  		name IN
+  		<foreach collection="names" item="item" index="index" open="(" separator="," close=")">#{item}</foreach>
+  	</if>
+  
+  </sql>
+  <select id="selectUserByName" resultMap="BaseResultMap" parameterType="java.util.List">
+  	select  
+  		<include refid="Base_Column_List"></include>
+  	 from  <include refid="table"></include>
+  	 
+  	 <where>
+  	 	name in 
+  	 	<foreach collection="names" item="item" index="index" open="(" separator="," close=")">#{item}</foreach>
+  	 </where>
+  </select>
+  
+   <select id="selectUserByNameIn" resultMap="BaseResultMap" parameterType="java.util.List">
+  	select  
+  		<include refid="Base_Column_List"></include>
+  	 from  <include refid="table"></include>
+  	 
+  	 <where>
+  	 	<include refid="selectUserList_Where">
+  	 		<property name="alias" value="t"/>
+  	 	</include>
+  	 </where>
+  </select>
+  
+  <select id="selectUserByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+  select  <include refid="Base_Column_List"></include>
+  	from <include refid="table"></include>
+  
+  </select>
 </mapper>

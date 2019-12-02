@@ -1,5 +1,8 @@
 package cn.cloud.api.testUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,15 @@ public class TestUserDao {
 	public void testUserService() {
 		SysUser sysUser = sysuserService.getSYsUserById(10L);
 		System.out.println(sysUser.getName());
+	}
+	
+	@Test
+	public void testUserDao() {
+		List< String> names = new ArrayList<>();
+		names.add("name");
+		names.add("dream1");
+		List< SysUser> users = sysUserMapper.selectUserByNameIn(names);
+		System.out.println(users.size());
 	}
 
 }
