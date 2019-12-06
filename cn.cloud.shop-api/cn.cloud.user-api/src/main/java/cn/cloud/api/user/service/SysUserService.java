@@ -4,5 +4,7 @@ import cn.cloud.api.user.entity.SysUser;
 
 public interface SysUserService {
 	public SysUser getSYsUserById(Long id);
+	
+	public Integer mulThreadInsert() ;
 
 }

@@ -52,8 +52,7 @@
    <select id="selectUserByNameIn" resultMap="BaseResultMap" parameterType="java.util.List">
   	select  
   		<include refid="Base_Column_List"></include>
-  	 from  <include refid="table"></include>
-  	 
+  	 from  <include refid="table"></include>  	 
   	 <where>
   	 	<include refid="selectUserList_Where">
   	 		<property name="alias" value="t"/>
@@ -64,6 +63,28 @@
   <select id="selectUserByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
   select  <include refid="Base_Column_List"></include>
   	from <include refid="table"></include>
+  	<where>
+  		name in 
+  		<foreach collection="map" item="value" index="index"  open="(" separator="," close=")">#{value}</foreach>
+  	</where>
   
   </select>
+  
+  <insert id="insertByMap" parameterType="java.util.Map"  >
+  	INSERT INTO <include refid="table"></include>(name,loginname)
+  	VALUES
+  	<foreach collection="map" item="value" index="key" separator=",">
+  	(#{key},#{value})
+  	</foreach>
+  </insert>
+  
+  
+  <insert id="insertMul" parameterType="java.util.List">
+  	insert into <include refid="table"></include>(personid,roleid,name,loginname)
+  	 values 
+  	 	<foreach collection="list" item="item" index="index" separator=",">
+  	 	(#{item.personid,jdbcType=BIGINT},#{item.roleid,jdbcType=BIGINT},#{item.name ,jdbcType=VARCHAR},#{item.loginname,jdbcType=VARCHAR})</foreach>
+  </insert>
+  
+  
 </mapper>
