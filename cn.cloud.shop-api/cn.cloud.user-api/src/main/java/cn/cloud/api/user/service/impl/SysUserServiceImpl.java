@@ -61,6 +61,10 @@ public class SysUserServiceImpl implements SysUserService {
 		results.add(task1);
 		results.add(task2);
 		results.add(task3);
+		
+		executor.submit(task1);
+		executor.submit(task2);
+		executor.submit(task3);
 		int sum = 0;
 		for (FutureTask<Integer> result : results) {
 			sum= sum + result.get();
