@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.TransactionManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,9 @@ public class UserController {
 	private String port;
 	
 	@Autowired
+	private PlatformTransactionManager transactionManager;
+	
+	@Autowired
 	private SysUserService SysUserService;
 	
 	@RequestMapping("/getuser")
@@ -35,12 +41,24 @@ public class UserController {
 		return user.getPerName()+ " from  "+ port;
 	}
 	@GetMapping("/test")
-	public String testMul(List<SysUser> userList) {
-		List<TransactionStatus> transactionStatuses = (List<TransactionStatus>) Collections.synchronizedCollection(
+	public String testMul(String tyString) {
+		
+		List<SysUser> list = new ArrayList<>();
+		
+		String name = "threadtest";
+		for (int i = 0; i < 300; i++) {
+			SysUser user = new SysUser();
+			user.setName(name+ i);
+			user.setLoginname(name+ i);
+			user.setPersonid(Long.parseLong(""+i));
+			list.add(user);
+			
+		}
+		List<TransactionStatus> transactionStatuses = Collections.synchronizedList(
 				new ArrayList<TransactionStatus>());
 		String msg = "failed";
 		try {
-			SysUserService.mulThreadInsert(userList,transactionStatuses);
+			SysUserService.mulThreadInsert(list,transactionStatuses,transactionManager);
 			msg  = "success";
 
 		} catch (Exception e) {

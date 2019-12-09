@@ -71,7 +71,8 @@ public class TestUserDao {
 		users.add(user1);
 		users.add(user2);
 		
-		sysUserMapper.insertMul(users);
+		int a = sysUserMapper.insertMul(users);
+		System.out.println("  a  : " + a);
 	}
 	
 	private void  conUser(SysUser user , String name) {
