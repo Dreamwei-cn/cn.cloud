@@ -78,10 +78,4 @@ public class MqConfig {
 		return factory;
 	}
 	
-	
-	
-	
-	
-	
-
 }

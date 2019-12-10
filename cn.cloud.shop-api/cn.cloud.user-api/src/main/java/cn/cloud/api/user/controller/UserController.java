@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.jms.Destination;
 import javax.transaction.TransactionManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +34,9 @@ public class UserController {
 	
 	@Autowired
 	private SysUserService SysUserService;
+	
+	@Autowired
+	private JmsMessagingTemplate jmsTemplate;
 	
 	@RequestMapping("/getuser")
 	public String getUser(@RequestParam(value = "name" ,defaultValue = "dream")String name) {
@@ -69,6 +75,12 @@ public class UserController {
 			}
 		}
 		return msg;
+	}
+	
+	@RequestMapping("/jms")
+	public String jmsTransaction(String msg) {
+		jmsTemplate.convertAndSend( msg);
+		return "";
 	}
 
 }
