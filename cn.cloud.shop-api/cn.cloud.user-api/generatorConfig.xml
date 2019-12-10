@@ -9,7 +9,7 @@
         <property name="endingDelimiter" value="`"/>
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="cn.cloud.api.utils.base.MyMapper"/>
+            <property name="mappers" value="cn.cloud.user_api.utils.base.MyMapper"/>
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
@@ -19,19 +19,19 @@
         </jdbcConnection>
 
         <!-- 对于生成的pojo所在包 -->
-        <javaModelGenerator targetPackage="cn.cloud.api.user.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="cn.cloud.user_api.user.entity" targetProject="src/main/java">
         	<property name="enableSubPackages" value="true" />  
             <property name="trimStrings" value="true" />  
             <property name="rootClass" value="cn.cloud.api.utils.base.BaseModel"/>
         </javaModelGenerator>
 
 		<!-- 对于生成的mapper所在目录 xml -->
-        <sqlMapGenerator targetPackage="cn.cloud.api.user.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="cn.cloud.user_api.user.mapper" targetProject="src/main/java">
         	<property name="enableSubPackages" value="true" /> 
         </sqlMapGenerator>
 
 		<!-- 配置mapper对应的java映射   接口-->
-        <javaClientGenerator targetPackage="cn.cloud.api.user.mapper" targetProject="src/main/java"
+        <javaClientGenerator targetPackage="cn.cloud.user_api.user.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
 		<table tableName="sys_user"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cloud.user_api.user.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="cn.cloud.user_api.user.entity.SysUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="personid" jdbcType="BIGINT" property="personid" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="loginname" jdbcType="VARCHAR" property="loginname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="lastLonginTime" jdbcType="TIMESTAMP" property="lastlongintime" />
+    <result column="lastLonginPlace" jdbcType="VARCHAR" property="lastlonginplace" />
+  </resultMap>
+  
+  <sql id="table">sys_user</sql>
+  
+  <sql id="Base_Column_List">
+ 	id,personid,roleid,name,loginname,password,createDate,enabled,status,updateDate,creator,updator,lastLonginTime,lastLonginPlace
+  </sql>
+  
+  <sql id="Alias_base_Column_List">
+  	${alias}.id,${alias}.roleid,${alias}.name
+  </sql>
+  
+  <sql id="selectUserList_Where" >
+  	<if test="names != null">
+  		name IN
+  		<foreach collection="names" item="item" index="index" open="(" separator="," close=")">#{item}</foreach>
+  	</if>
+  
+  </sql>
+  <select id="selectUserByName" resultMap="BaseResultMap" parameterType="java.util.List">
+  	select  
+  		<include refid="Base_Column_List"></include>
+  	 from  <include refid="table"></include>
+  	 
+  	 <where>
+  	 	name in 
+  	 	<foreach collection="names" item="item" index="index" open="(" separator="," close=")">#{item}</foreach>
+  	 </where>
+  </select>
+  
+   <select id="selectUserByNameIn" resultMap="BaseResultMap" parameterType="java.util.List">
+  	select  
+  		<include refid="Base_Column_List"></include>
+  	 from  <include refid="table"></include>  	 
+  	 <where>
+  	 	<include refid="selectUserList_Where">
+  	 		<property name="alias" value="t"/>
+  	 	</include>
+  	 </where>
+  </select>
+  
+  <select id="selectUserByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+  select  <include refid="Base_Column_List"></include>
+  	from <include refid="table"></include>
+  	<where>
+  		name in 
+  		<foreach collection="map" item="value" index="index"  open="(" separator="," close=")">#{value}</foreach>
+  	</where>
+  
+  </select>
+  
+  <insert id="insertByMap" parameterType="java.util.Map"  >
+  	INSERT INTO <include refid="table"></include>(name,loginname)
+  	VALUES
+  	<foreach collection="map" item="value" index="key" separator=",">
+  	(#{key},#{value})
+  	</foreach>
+  </insert>
+  
+  
+  <insert id="insertMul" parameterType="java.util.List">
+  	insert into <include refid="table"></include>(personid,roleid,name,loginname)
+  	 values 
+  	 	<foreach collection="list" item="item" index="index" separator=",">
+  	 	(#{item.personid,jdbcType=BIGINT},#{item.roleid,jdbcType=BIGINT},#{item.name ,jdbcType=VARCHAR},#{item.loginname,jdbcType=VARCHAR})</foreach>
+  </insert>
+  
+  
+</mapper>
