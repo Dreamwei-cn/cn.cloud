@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class UserController {
 	
 	@Autowired
 	private PlatformTransactionManager transactionManager;
+	
+	@Autowired 
+	private JmsMessagingTemplate jmsMessagingTemplate;
 	
 	@Autowired
 	private SysUserService SysUserService;
@@ -73,8 +77,8 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/queue/string")
-	public String jmsTransaction( ) {
-		String msg =" 我的消息";
+	public String SendMsg(String msg ) {
+
 		try {
 			userProducer.sendQueueMsg(msg);
 		} catch (Exception e) {
@@ -83,6 +87,44 @@ public class UserController {
 			return "failed";
 		}
 		return "success";
+	}
+	
+	@GetMapping(value = "/queue/tra")
+	public String transaction(String msg ) {
+		
+		try {
+			userProducer.sendMsgByName("mq:ta", msg);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return "failed";
+		}
+		return "success";
+	}
+	@GetMapping(value = "/jms/tra")
+	public String jmsTransaction(String msg ) {
+		
+		try {
+			userProducer.sendMsgByName("mq:ta1", msg);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return "failed";
+		}
+		return "success";
+	}
+	
+	@GetMapping(value = "/tra/msg")
+	public String jmsReceive( ) {
+		String msg = "11";
+		try {
+			msg = jmsMessagingTemplate.receiveAndConvert("transaction", String.class);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return "failed";
+		}
+		return  msg;
 	}
 
 }
