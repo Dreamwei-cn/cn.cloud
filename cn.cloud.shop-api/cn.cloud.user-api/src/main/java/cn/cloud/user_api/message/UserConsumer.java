@@ -74,6 +74,7 @@ public class UserConsumer {
 	
 	@JmsListener(destination = "${queueName}" ,containerFactory = "jmsContainerFactoryQueue")
 	public void handleQueueMsg(TextMessage msg,Session session) throws Exception {
+		log.info(" <<<<<<<<<<<<<<<<< 接受消息");
 		String type = msg.getText();
 		Object object = msg.getObjectProperty("value");
 		String message = "";

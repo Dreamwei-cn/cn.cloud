@@ -123,8 +123,7 @@ spring:
       trust-all: true
     pool:
       enabled: false
-    
-    
+      
 mybatis:
  #pojo类所在包路径
   type-aliases-package: cn.cloud.user_api.user.entity
@@ -143,7 +142,7 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
-      
+
 queueName: myqueue
 topicName: mytopic
 listenerQueue: lisqueue

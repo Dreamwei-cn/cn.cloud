@@ -6,6 +6,8 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 
 import org.apache.activemq.command.ActiveMQTextMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.jms.core.JmsMessagingTemplate;
@@ -28,8 +30,11 @@ public class UserProducer {
 	@Autowired
 	private Topic topic;
 	
+	
+	private static final Logger log = LoggerFactory.getLogger(UserProducer.class);
 
 	public void sendQueueMsg(String msg) throws JMSException{
+		log.info(">>>>>>>> send  string msg " + msg);
 		Assert.notNull(msg, "String ms is null ");
 		TextMessage textMessage = new ActiveMQTextMessage();
 		textMessage.setText(DreamClassUtills.TYPE_STRING);
