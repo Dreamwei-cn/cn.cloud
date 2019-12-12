@@ -101,15 +101,15 @@ spring:
       charset: UTF-8
       
       
-  rabbitmq:
-    addresses: localhost:5672
-    username: guest
-    password: guest
-    virtual-host: /
-    connection-timeout: 15000
+#  rabbitmq:
+#    addresses: localhost:5672
+#    username: guest
+#    password: guest
+#    virtual-host: /
+#    connection-timeout: 15000
 
   activemq:
-    broker-url: tcp://localhost:61616
+    broker-url: tcp://172.25.253.182:61616
     user: admin
     password: admin
     # 默认代理URL是否应该在内存中。如果指定了显式代理，则忽略此值。
@@ -123,7 +123,26 @@ spring:
       trust-all: true
     pool:
       enabled: false
-      
+        redis:
+    database: 0    host: 127.0.0.1
+    port: 6379
+    timeout: 10000
+    jedis:      pool:        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+
+#redis集群配置
+#spring.cluster.nodes=192.168.1.1:7001,192.168.1.1:7002,192.168.1.1:7003,192.168.1.1:7004,192.168.1.1:7005,192.168.1.1:7006
+#spring.cluster.max-redirects=3
+ 
+#哨兵模式
+#sentinel.host1=192.168.1.1
+#sentinel.port1=26379
+ 
+#sentinel.host2=192.168.1.2
+
+  
 mybatis:
  #pojo类所在包路径
   type-aliases-package: cn.cloud.user_api.user.entity
