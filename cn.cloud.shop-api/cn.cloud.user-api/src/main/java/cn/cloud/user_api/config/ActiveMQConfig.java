@@ -16,8 +16,11 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
+import org.springframework.jms.connection.JmsTransactionManager;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.QosSettings;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @EnableJms
@@ -84,6 +87,15 @@ public class ActiveMQConfig {
 		return con;
 	}
 	
+	@Bean
+	public ActiveMQConnectionFactory connectionFactory() {
+		log.info(" create  activeMqConnectionFactory");
+		ActiveMQConnectionFactory con = new ActiveMQConnectionFactory(userName, password, brokerURL);
+		con.setMaxThreadPoolSize(5);
+		con.setAlwaysSessionAsync(true);
+		return con;
+	}
+	
 	
 	@Bean
 	public JmsListenerContainerFactory<?> jmsContainerFactoryTopic(ActiveMQConnectionFactory  connectionFactory) {
@@ -95,7 +107,9 @@ public class ActiveMQConfig {
 		return factory;
 	}
 	@Bean
-	public JmsListenerContainerFactory<?> jmsContainerFactoryQueue(ActiveMQConnectionFactory  connectionFactory) {
+	public JmsListenerContainerFactory<?> jmsContainerFactoryQueue(ActiveMQConnectionFactory  connectionFactory
+			,PlatformTransactionManager transactionManager
+			) {
 		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
 		// 异步
 		
@@ -103,22 +117,50 @@ public class ActiveMQConfig {
 		// 连接数
 		factory.setConcurrency("1-10");
 		// 重发间隔时间
-		factory.setRecoveryInterval(1000L);
+
+		factory.setTransactionManager(transactionManager);
+		factory.setRecoveryInterval(5000L);
+
 		factory.setSessionAcknowledgeMode(4);
 		return factory;
 	}
 	
+	@Bean
+	public JmsListenerContainerFactory<?> jmsContainerFactoryQueueNOJmsTransaction(ActiveMQConnectionFactory  connectionFactory
+			,PlatformTransactionManager transactionManager
+			) {
+		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+		// 异步
+		
+		factory.setConnectionFactory(connectionFactory);
+		// 连接数
+		factory.setConcurrency("1-10");
+		// 重发间隔时间
+
+//		factory.setTransactionManager(transactionManager);
+		factory.setRecoveryInterval(5000L);
+
+		factory.setSessionAcknowledgeMode(4);
+		return factory;
+	}
+	
+	
+
 	@Bean
 	public JmsMessagingTemplate jmsMessagingTemplate(ActiveMQConnectionFactory activeMQConnectionFactory,Queue queue) {
 		JmsTemplate jmsTemplate = new JmsTemplate(activeMQConnectionFactory);
 		//进行持久化配置 1表示非持久化，2表示持久
 		jmsTemplate.setDeliveryMode(2);
 		jmsTemplate.setDefaultDestination(queue);
-		//客户端签收模式
+		//客户端签收模式     事务关闭
 		jmsTemplate.setSessionAcknowledgeMode(4);
 		
 		return new JmsMessagingTemplate(jmsTemplate);
 	}
 	
+    @Bean
+    public PlatformTransactionManager transactionManager(ActiveMQConnectionFactory connectionFactory) {
+        return new JmsTransactionManager(connectionFactory);
+    }
 
 }
