@@ -12,7 +12,7 @@ import com.alibaba.druid.filter.config.ConfigTools;
 public class Utils {
 	
 	public static void main(String[] args) {
-		String passwordString = "user";
+		String passwordString = "123456";
 		try {
 			String[] arr = ConfigTools.genKeyPair(512);
 			

@@ -10,6 +10,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -103,6 +106,42 @@ public class SysUserServiceMulImpl implements SysUserServiceMul {
 		
 		
 		return sum;
+	}
+
+	@Override
+	public SysUser addSysUser(SysUser sysUser) {
+		sysUserMapper.insert(sysUser);
+		return sysUser;
+	}
+
+	@Cacheable(value = "user", key = "#root.args[0]", unless = "#result eq null")
+	@Override
+	public SysUser getById(Long id) {
+		return sysUserMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+     * @CachePut 应用到写数据的方法上，如新增/修改方法，调用方法时会自动把相应的数据放入缓存
+     * 
+     */
+	@CachePut(value = "user", key = "#root.args[0]", unless = "#sysUser eq null") 
+	@Override
+	public SysUser update(SysUser sysUser) {
+		
+		sysUserMapper.insert(sysUser);
+		return sysUser;
+	}
+
+
+	/**
+	 * 
+	 */
+	@CacheEvict(value="user",key = "#root.args[0]",condition = "#result eq true")
+	@Override
+	public Boolean removeUser(Long id) {
+		int num =  sysUserMapper.deleteByPrimaryKey( id);
+		
+		return num > 0 ? true :false;
 	}
 	
 

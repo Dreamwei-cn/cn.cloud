@@ -5,6 +5,7 @@
     <artifactId>cn.cloud.shop-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  <groupId>cn.cloud.order-api</groupId>
   <artifactId>cn.cloud.order-api</artifactId>
   	<build>
 		<plugins>

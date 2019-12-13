@@ -5,5 +5,6 @@
     <artifactId>cn.cloud.shop-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  <groupId>cn.cloud.goods-api</groupId>
   <artifactId>cn.cloud.goods-api</artifactId>
 </project>
