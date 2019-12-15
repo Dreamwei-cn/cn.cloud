@@ -9,7 +9,7 @@ import com.alibaba.druid.filter.config.ConfigTools;
  * @author Dream
  *	druid  密码加密
  */
-public class Utils {
+public class UtilsPassword {
 	
 	public static void main(String[] args) {
 		String passwordString = "123456";

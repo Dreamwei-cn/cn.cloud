@@ -22,8 +22,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.QosSettings;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Configuration
-@EnableJms
+//@Configuration
+//@EnableJms
 public class ActiveMQConfig {
 	
 	@Value("${queueName}")
@@ -49,17 +49,17 @@ public class ActiveMQConfig {
 	
 	private static final Logger log= LoggerFactory.getLogger(ActiveMQConfig.class);
 	
-	@Bean
+//	@Bean
 	public  Queue queue() {
 		return new ActiveMQQueue(queueName);
 	}
 	
-	@Bean 
+//	@Bean 
 	public Topic Topic() {
 		return new ActiveMQTopic(topicName);
 	}
 	
-	 @Bean
+//	 @Bean
 	 public RedeliveryPolicy redeliveryPolicy(){
 	            RedeliveryPolicy  redeliveryPolicy=   new RedeliveryPolicy();
 	            //是否在每次尝试重新发送失败后,增长这个等待时间
@@ -77,7 +77,7 @@ public class ActiveMQConfig {
 	            return redeliveryPolicy;
 	    }
 	
-	@Bean
+//	@Bean
 	public ActiveMQConnectionFactory connectionFactory(RedeliveryPolicy redeliveryPolicy) {
 		log.info(" create  activeMqConnectionFactory");
 		ActiveMQConnectionFactory con = new ActiveMQConnectionFactory(userName, password, brokerURL);
@@ -87,7 +87,7 @@ public class ActiveMQConfig {
 		return con;
 	}
 	
-	@Bean
+//	@Bean
 	public ActiveMQConnectionFactory connectionFactory() {
 		log.info(" create  activeMqConnectionFactory");
 		ActiveMQConnectionFactory con = new ActiveMQConnectionFactory(userName, password, brokerURL);
@@ -97,7 +97,7 @@ public class ActiveMQConfig {
 	}
 	
 	
-	@Bean
+//	@Bean
 	public JmsListenerContainerFactory<?> jmsContainerFactoryTopic(ActiveMQConnectionFactory  connectionFactory) {
 		SimpleJmsListenerContainerFactory factory = new SimpleJmsListenerContainerFactory();
 
@@ -106,7 +106,7 @@ public class ActiveMQConfig {
 		factory.setPubSubDomain(true);
 		return factory;
 	}
-	@Bean
+//	@Bean
 	public JmsListenerContainerFactory<?> jmsContainerFactoryQueue(ActiveMQConnectionFactory  connectionFactory
 			,PlatformTransactionManager transactionManager
 			) {
@@ -125,42 +125,42 @@ public class ActiveMQConfig {
 		return factory;
 	}
 	
-	@Bean
-	public JmsListenerContainerFactory<?> jmsContainerFactoryQueueNOJmsTransaction(ActiveMQConnectionFactory  connectionFactory
-			,PlatformTransactionManager transactionManager
-			) {
-		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-		// 异步
-		
-		factory.setConnectionFactory(connectionFactory);
-		// 连接数
-		factory.setConcurrency("1-10");
-		// 重发间隔时间
-
-//		factory.setTransactionManager(transactionManager);
-		factory.setRecoveryInterval(5000L);
-
-		factory.setSessionAcknowledgeMode(4);
-		return factory;
-	}
-	
-	
-
-	@Bean
-	public JmsMessagingTemplate jmsMessagingTemplate(ActiveMQConnectionFactory activeMQConnectionFactory,Queue queue) {
-		JmsTemplate jmsTemplate = new JmsTemplate(activeMQConnectionFactory);
-		//进行持久化配置 1表示非持久化，2表示持久
-		jmsTemplate.setDeliveryMode(2);
-		jmsTemplate.setDefaultDestination(queue);
-		//客户端签收模式     事务关闭
-		jmsTemplate.setSessionAcknowledgeMode(4);
-		
-		return new JmsMessagingTemplate(jmsTemplate);
-	}
-	
-    @Bean
-    public PlatformTransactionManager transactionManager(ActiveMQConnectionFactory connectionFactory) {
-        return new JmsTransactionManager(connectionFactory);
-    }
+//	@Bean
+//	public JmsListenerContainerFactory<?> jmsContainerFactoryQueueNOJmsTransaction(ActiveMQConnectionFactory  connectionFactory
+//			,PlatformTransactionManager transactionManager
+//			) {
+//		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+//		// 异步
+//		
+//		factory.setConnectionFactory(connectionFactory);
+//		// 连接数
+//		factory.setConcurrency("1-10");
+//		// 重发间隔时间
+//
+////		factory.setTransactionManager(transactionManager);
+//		factory.setRecoveryInterval(5000L);
+//
+//		factory.setSessionAcknowledgeMode(4);
+//		return factory;
+//	}
+//	
+//	
+//
+//	@Bean
+//	public JmsMessagingTemplate jmsMessagingTemplate(ActiveMQConnectionFactory activeMQConnectionFactory,Queue queue) {
+//		JmsTemplate jmsTemplate = new JmsTemplate(activeMQConnectionFactory);
+//		//进行持久化配置 1表示非持久化，2表示持久
+//		jmsTemplate.setDeliveryMode(2);
+//		jmsTemplate.setDefaultDestination(queue);
+//		//客户端签收模式     事务关闭
+//		jmsTemplate.setSessionAcknowledgeMode(4);
+//		
+//		return new JmsMessagingTemplate(jmsTemplate);
+//	}
+//	
+//    @Bean
+//    public PlatformTransactionManager transactionManager(ActiveMQConnectionFactory connectionFactory) {
+//        return new JmsTransactionManager(connectionFactory);
+//    }
 
 }

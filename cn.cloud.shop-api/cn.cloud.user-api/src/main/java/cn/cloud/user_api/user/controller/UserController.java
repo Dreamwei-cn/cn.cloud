@@ -18,7 +18,7 @@ import cn.cloud.common.model.User;
 import cn.cloud.user_api.message.UserProducer;
 import cn.cloud.user_api.user.entity.SysUser;
 import cn.cloud.user_api.user.service.SysUserService;
-
+// 换用 rabbitmq
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -29,13 +29,13 @@ public class UserController {
 	@Autowired
 	private PlatformTransactionManager transactionManager;
 	
-	@Autowired 
-	private JmsMessagingTemplate jmsMessagingTemplate;
+//	@Autowired 
+//	private JmsMessagingTemplate jmsMessagingTemplate;
 	
 	@Autowired
 	private SysUserService SysUserService;
-	@Autowired
-	private UserProducer userProducer;
+//	@Autowired
+//	private UserProducer userProducer;
 	
 	@RequestMapping("/getuser")
 	public String getUser(@RequestParam(value = "name" ,defaultValue = "dream")String name) {
@@ -76,55 +76,55 @@ public class UserController {
 		return msg;
 	}
 	
-	@GetMapping(value = "/queue/string")
-	public String SendMsg(String msg ) {
-
-		try {
-			userProducer.sendQueueMsg(msg);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return "failed";
-		}
-		return "success";
-	}
+//	@GetMapping(value = "/queue/string")
+//	public String SendMsg(String msg ) {
+//
+//		try {
+//			userProducer.sendQueueMsg(msg);
+//		} catch (Exception e) {
+//			
+//			e.printStackTrace();
+//			return "failed";
+//		}
+//		return "success";
+//	}
 	
-	@GetMapping(value = "/queue/tra")
-	public String transaction(String msg ) {
-		
-		try {
-			userProducer.sendMsgByName("mq:ta", msg);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return "failed";
-		}
-		return "success";
-	}
-	@GetMapping(value = "/jms/tra")
-	public String jmsTransaction(String msg ) {
-		
-		try {
-			userProducer.sendMsgByName("mq:ta1", msg);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return "failed";
-		}
-		return "success";
-	}
-	
-	@GetMapping(value = "/tra/msg")
-	public String jmsReceive( ) {
-		String msg = "11";
-		try {
-			msg = jmsMessagingTemplate.receiveAndConvert("transaction", String.class);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return "failed";
-		}
-		return  msg;
-	}
+//	@GetMapping(value = "/queue/tra")
+//	public String transaction(String msg ) {
+//		
+//		try {
+//			userProducer.sendMsgByName("mq:ta", msg);
+//		} catch (Exception e) {
+//			
+//			e.printStackTrace();
+//			return "failed";
+//		}
+//		return "success";
+//	}
+//	@GetMapping(value = "/jms/tra")
+//	public String jmsTransaction(String msg ) {
+//		
+//		try {
+//			userProducer.sendMsgByName("mq:ta1", msg);
+//		} catch (Exception e) {
+//			
+//			e.printStackTrace();
+//			return "failed";
+//		}
+//		return "success";
+//	}
+//	
+//	@GetMapping(value = "/tra/msg")
+//	public String jmsReceive( ) {
+//		String msg = "11";
+//		try {
+//			msg = jmsMessagingTemplate.receiveAndConvert("transaction", String.class);
+//		} catch (Exception e) {
+//			
+//			e.printStackTrace();
+//			return "failed";
+//		}
+//		return  msg;
+//	}
 
 }

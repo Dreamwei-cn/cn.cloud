@@ -28,7 +28,24 @@ public class RabbitConsumer {
 	)
 	@RabbitHandler
 	public void onMessage(Message<?> message,Channel channel) throws IOException {
-		System.err.println(" 消费端信息  ： " +message.getPayload());
+		System.out.println(" 消费端信息 1  ： " +message.getPayload());
+		Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
+		channel.basicAck(deliveryTag, false);
+	}
+	
+	
+	@RabbitListener(bindings = @QueueBinding(
+			value = @Queue(value = "queue-1",durable = "true"),
+			exchange = @Exchange( value ="exchange-2",
+									durable = "true",
+									type = "topic",
+									ignoreDeclarationExceptions = "true"),
+			key = "springboot.*"
+			)
+	)
+	@RabbitHandler
+	public void onMessageOrder(Message<?> message,Channel channel) throws IOException {
+		System.out.println(" 消费端信息2   ： " +message.getPayload());
 		Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
 		channel.basicAck(deliveryTag, false);
 	}

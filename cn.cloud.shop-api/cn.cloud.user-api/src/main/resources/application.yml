@@ -101,28 +101,48 @@ spring:
       charset: UTF-8
       
       
-#  rabbitmq:
-#    addresses: localhost:5672
-#    username: guest
-#    password: guest
-#    virtual-host: /
-#    connection-timeout: 15000
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 15000
+    # 开启发送确认
+    publisher-confirms: true
+    # 开启发送失败退回
+    publisher-returns: true
+    #开启 ack
+    listener:      direct:
+      # 手动应答        acknowledge-mode: manual
+        # 限流
+        prefetch: 1
+      simple:        acknowledge-mode: manual
+        prefetch: 1
+        max-concurrency: 1
+        retry:          enabled: true
+          max-attempts: 3
+          multiplier: 1.0
+          initial-interval: 1000
+          max-interval: 1000
+    template:      mandatory: true
+    
+   
 
-  activemq:
-    broker-url: tcp://172.25.253.182:61616
-    user: admin
-    password: admin
-    # 默认代理URL是否应该在内存中。如果指定了显式代理，则忽略此值。
-    #是否启用内存模式（就是不安装MQ，项目启动时同时启动一个MQ实例）
-    in-memory: false
-    # 结束前等待时间
-    close-timeout: 10s
-    #等待小时响应时间  0 永远
-    send-timeout: 0
-    packages:
-      trust-all: true
-    pool:
-      enabled: false
+#  activemq:
+#    broker-url: tcp://172.25.253.182:61616
+#    user: admin
+#    password: admin
+        # 默认代理URL是否应该在内存中。如果指定了显式代理，则忽略此值。
+          #是否启用内存模式（就是不安装MQ，项目启动时同时启动一个MQ实例）
+#    in-memory: false
+     # 结束前等待时间
+#    close-timeout: 10s
+      #等待小时响应时间  0 永远
+#    send-timeout: 0
+#    packages:
+#      trust-all: true
+#    pool:
+#      enabled: false
         redis:
     database: 0    host: 127.0.0.1
     port: 6379
@@ -165,6 +185,19 @@ pagehelper:
 queueName: myqueue
 topicName: mytopic
 listenerQueue: lisqueue
-listenerTopic: lisqueue
+listenerTopic: listopic
 
+
+rabbit:send:exchange: send.exchange.user
+rabbit:lisenter:exchange: send.exchange.user
+
+rabbit.queue.user: user.message
+rabbit.queue: message
+
+user.delay.exchange: user.delay.exchange
+user.delay.queue: user.delay.queue
+user.delay.key: user.delay.key
+
+rabbit.send.routingKey:msg: msg.user.#
+rabbit:send:routingKey:obj: obj.user.#
     

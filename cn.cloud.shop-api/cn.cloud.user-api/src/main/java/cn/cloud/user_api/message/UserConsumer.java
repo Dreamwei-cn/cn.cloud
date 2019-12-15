@@ -16,16 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.cloud.common.util.DreamExceptionUtils;
 import cn.cloud.user_api.user.entity.SysUser;
 import cn.cloud.user_api.utils.base.DreamClassUtills;
-
-@Service
+//  换用 rabbitmq
+//@Service
 public class UserConsumer {
 
 
 	private static final Logger log = LoggerFactory.getLogger(UserConsumer.class);
-	@Autowired
+//	@Autowired
 	private JmsMessagingTemplate jmsMessagingTemplate;
 	
-	@Autowired 
+//	@Autowired 
 	private  UserProducer userProducer;
 
 //	
@@ -82,7 +82,7 @@ public class UserConsumer {
 //		return message;
 //	}
 	
-	@JmsListener(destination = "${queueName}" ,containerFactory = "jmsContainerFactoryQueueNOJmsTransaction")
+//	@JmsListener(destination = "${queueName}" ,containerFactory = "jmsContainerFactoryQueueNOJmsTransaction")
 	public void handleQueueMsg(TextMessage msg,Session session) throws Exception {
 		log.info(" queueName <<<<<<<<<<<<<<<<< 接受消息");
 		String type = msg.getText();
@@ -121,7 +121,7 @@ public class UserConsumer {
 	
 	
 	
-	@JmsListener(destination = "${topicName}" ,containerFactory = "jmsContainerFactoryTopic")
+//	@JmsListener(destination = "${topicName}" ,containerFactory = "jmsContainerFactoryTopic")
 	public void handleTopicMsg(TextMessage msg,Session session) throws Exception {
 		log.info(" <<<<<<<<<<<<<<<<< 接受消息");
 		String type = msg.getText();

@@ -122,14 +122,15 @@ public class SysUserServiceMulImpl implements SysUserServiceMul {
 
 	/**
      * @CachePut 应用到写数据的方法上，如新增/修改方法，调用方法时会自动把相应的数据放入缓存
+     * key = "#root.args[0]" 时，此位置 key  SysUser 对象， 序列化     
      * 
      */
-	@CachePut(value = "user", key = "#root.args[0]", unless = "#sysUser eq null") 
+	@CachePut(value = "user", key = "#root.args[0].id", unless = "#sysUser eq null") 
 	@Override
 	public SysUser update(SysUser sysUser) {
 		
-		sysUserMapper.insert(sysUser);
-		return sysUser;
+		int num = sysUserMapper.updateByPrimaryKey(sysUser);
+		return num > 0? sysUser :null;
 	}
 
 
@@ -139,7 +140,10 @@ public class SysUserServiceMulImpl implements SysUserServiceMul {
 	@CacheEvict(value="user",key = "#root.args[0]",condition = "#result eq true")
 	@Override
 	public Boolean removeUser(Long id) {
-		int num =  sysUserMapper.deleteByPrimaryKey( id);
+		int num = 0;
+		num = sysUserMapper.deleteSysUserById(id);
+		
+		System.out.println(num);
 		
 		return num > 0 ? true :false;
 	}

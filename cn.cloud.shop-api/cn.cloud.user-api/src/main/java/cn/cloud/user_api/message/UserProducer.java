@@ -19,14 +19,14 @@ import cn.cloud.user_api.utils.base.DreamClassUtills;
 
 
 
-@Service
+//@Service
 public class UserProducer {
 	
-	@Autowired
+//	@Autowired
 	private JmsMessagingTemplate jmsMessagingTemplate;
-	@Autowired
+//	@Autowired
 	private Queue queue;
-	@Autowired
+//	@Autowired
 	private Topic topic;
 	
 	

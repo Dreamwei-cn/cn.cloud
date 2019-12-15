@@ -45,7 +45,7 @@ public class TestAdmin {
 	@Test
 	public  void testSendOrder() {
 		Order order = new Order();
-		order.setId("aaaaa123414 order");
+		order.setId("22 order");
 		Map<String, Object> properties = new HashMap<>();
 		properties.put("order", "this is order");
 		rabbitSender.sendOrder(order);

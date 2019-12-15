@@ -17,4 +17,6 @@ public interface SysUserMapper extends MyMapper<SysUser> {
 	void insertByMap(@Param("map") Map<String, String> map);
 	
 	Integer insertMul(@Param("list")List<SysUser> list);
+	
+	int deleteSysUserById(@Param("id")Long id);
 }
