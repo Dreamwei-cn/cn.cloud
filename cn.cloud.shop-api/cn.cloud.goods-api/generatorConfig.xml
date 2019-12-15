@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MysqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="cn.cloud.goods_api.util.MyMapper"/>
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/bootdream?serverTimezone=UTC&amp;useSSL=true"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!-- 对于生成的pojo所在包 -->
+        <javaModelGenerator targetPackage="cn.cloud.goods_api.goods.entity" targetProject="src/main/java">
+        	<property name="enableSubPackages" value="true" />  
+            <property name="trimStrings" value="true" />  
+            <property name="rootClass" value="cn.cloud.goods_api.util.BaseModel"/>
+        </javaModelGenerator>
+
+		<!-- 对于生成的mapper所在目录 xml -->
+        <sqlMapGenerator targetPackage="cn.cloud.goods_api.goods.mapper" targetProject="src/main/java">
+        	<property name="enableSubPackages" value="true" /> 
+        </sqlMapGenerator>
+
+		<!-- 配置mapper对应的java映射   接口-->
+        <javaClientGenerator targetPackage="cn.cloud.goods_api.goods.mapper" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+		<table tableName="sys_user"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+		 
+    </context>
+</generatorConfiguration>
