@@ -1,4 +1,4 @@
-package cn.cloud.api.order.entity;
+package cn.cloud.order_api.order.entity;
 
 public class Order {
 	private String id;

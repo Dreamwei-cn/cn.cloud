@@ -8,6 +8,7 @@
 
     <logger name="cn.cloud.goods_api" level="DEBUG"/>
 
+ 	<logger name="com.atomikos" level="INFO"/>
     <logger name="org.springframework.transaction" level="DEBUG"/>
     <logger name="org.springframework.jms" level="DEBUG"/>
     <logger name="org.springframework.jdbc" level="DEBUG"/>

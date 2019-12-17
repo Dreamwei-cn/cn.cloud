@@ -7,4 +7,12 @@
   </parent>
   <groupId>cn.cloud.goods-api</groupId>
   <artifactId>cn.cloud.goods-api</artifactId>
+  
+  <dependencies>
+  
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+		</dependency>
+  </dependencies>
 </project>
