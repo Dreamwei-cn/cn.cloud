@@ -1,5 +1,6 @@
 package cn.cloud.common.util;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 
 /**
  * @author Dream
@@ -270,10 +272,33 @@ public class RedisUtils {
 	
 	
 	
+	/**
+	 * 获取 分布式是锁   
+	 * @param key  key  
+	 * @param value   服务id
+	 * @param time  超时时间
+	 * @return
+	 */
+	public Boolean getLock(String key, String value,Long time) {
+		return  sRedisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.MILLISECONDS);
+	}
 	
+	private static final Long RELEASE_SUCCESS = 1L;
 	
-	
-	
+	/**
+	 * @param key  key
+	 * @param value  服务id
+	 * @return 
+	 */
+	public Boolean unLock(String key,String value) {
+		DefaultRedisScript<Long> defaultRedisScript = new DefaultRedisScript<>();
+		defaultRedisScript.setResultType(Long.class);
+		String scriptText = "if redis.call('get', KEYS[1]) == KEYS[2] then return redis.call('del', KEYS[1]) else return 0 end";
+		defaultRedisScript.setScriptText(scriptText);
+		Long result = sRedisTemplate.execute(defaultRedisScript,Arrays.asList(key,value));
+		
+		return RELEASE_SUCCESS.equals(result);
+	}
 	
 	
 	

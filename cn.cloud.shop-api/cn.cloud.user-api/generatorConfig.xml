@@ -34,7 +34,13 @@
         <javaClientGenerator targetPackage="cn.cloud.user_api.user.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-		<table tableName="sys_user"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+		<table tableName="sys_user"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" 
+				enableSelectByExample="false" selectByExampleQueryId="false">
+				<property name="useActualColumnNames" value="true"/>
+             	<property name="desc" value="用户"/>
+				
+		</table>
+				
 		 
     </context>
 </generatorConfiguration>
