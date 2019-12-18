@@ -11,7 +11,7 @@ spring:
     user: admin
     password: admin  
     in-memory: false
-    
+ 
  
  #  activemq:
 #    broker-url: tcp://172.25.253.182:61616
@@ -28,6 +28,7 @@ spring:
 #      trust-all: true
 #    pool:
 #      enabled: false   
+
 mybatis:
  #pojo类所在包路径
   type-aliases-package: cn.cloud.goods_api.goods.entity

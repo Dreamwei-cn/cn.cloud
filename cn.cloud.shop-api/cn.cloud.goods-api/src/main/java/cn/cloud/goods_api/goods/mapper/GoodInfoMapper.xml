@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cloud.goods_api.goods.mapper.GoodInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.cloud.goods_api.goods.entity.GoodInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="Id" jdbcType="BIGINT" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="enabled" jdbcType="CHAR" property="enabled" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+    <result column="mader" jdbcType="VARCHAR" property="mader" />
+    <result column="makeTime" jdbcType="TIMESTAMP" property="maketime" />
+    <result column="makePlace" jdbcType="VARCHAR" property="makeplace" />
+    <result column="num" jdbcType="BIGINT" property="num" />
+    <result column="isOpen" jdbcType="CHAR" property="isopen" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="isContains" jdbcType="CHAR" property="iscontains" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="solder" jdbcType="VARCHAR" property="solder" />
+    <result column="localPlace" jdbcType="VARCHAR" property="localplace" />
+  </resultMap>
+</mapper>

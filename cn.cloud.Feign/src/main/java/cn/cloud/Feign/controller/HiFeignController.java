@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.cloud.Feign.service.SchedualGoods;
 import cn.cloud.Feign.service.SchedualLogistics;
-import cn.cloud.Feign.service.SchedualSercieHi;
+import cn.cloud.Feign.service.SchedualUser;
 
 @RestController
 @RequestMapping("/hi")
 public class HiFeignController {
 
 	@Autowired
-	private SchedualSercieHi schedualSercieHi;
+	private SchedualUser schedualSercieHi;
 	@Autowired
 	private  SchedualGoods schedualGoods;
 	@Autowired

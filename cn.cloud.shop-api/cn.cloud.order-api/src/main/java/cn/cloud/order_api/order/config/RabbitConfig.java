@@ -1,4 +1,4 @@
-package cn.cloud.api.order.config;
+package cn.cloud.order_api.order.config;
 
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

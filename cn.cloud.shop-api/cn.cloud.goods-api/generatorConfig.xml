@@ -13,7 +13,7 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/bootdream?serverTimezone=UTC&amp;useSSL=true"
+                        connectionURL="jdbc:mysql://localhost:3306/cloud_goods?serverTimezone=UTC&amp;useSSL=true"
                         userId="root"
                         password="123456">
         </jdbcConnection>
@@ -34,11 +34,7 @@
         <javaClientGenerator targetPackage="cn.cloud.goods_api.goods.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-		<table tableName="sys_user"   enableCountByExample="false" enableUpdateByExample="false" 
-				enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
-				
-				
-		</table>
+		<table tableName="good_info"   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
 		 
     </context>
 </generatorConfiguration>

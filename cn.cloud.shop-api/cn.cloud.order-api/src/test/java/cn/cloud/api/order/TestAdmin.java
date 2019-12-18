@@ -13,9 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
-import cn.cloud.api.order.service.RabbitSender;
 import cn.cloud.common.model.Order;
+import cn.cloud.order_api.order.service.RabbitSender;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
