@@ -16,6 +16,9 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -25,6 +28,12 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 
+import cn.cloud.user_api.redis.RedisReceiver;
+
+/**
+ * @author Dream
+ *
+ */
 @EnableCaching
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
@@ -91,5 +100,45 @@ public class RedisConfig {
 		
 		return cacheManager;
 	}
+	@Bean
+	MessageListenerAdapter  userListenerAdapter(RedisReceiver receiver) {
+		MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(receiver, "receiveUserMessage");
+		FastJson2JsonRedisSerializer< ?> fastJson2JsonRedisSerializer = 
+				(FastJson2JsonRedisSerializer<?>) this.fastJson2JsonRedisSerializer();
+		messageListenerAdapter.setSerializer(fastJson2JsonRedisSerializer);
+		return messageListenerAdapter;
+	}
+	//  redis 消息发布监听
+	
+	/**
+	 * @param receiver
+	 * @return
+	 */
+	@Bean
+	MessageListenerAdapter  orderListenerAdapter(RedisReceiver receiver) {
+		// 消费者 不继承 MessageListener 接口      在代理器里添加    
+		MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(receiver, "receiveOrderMessage");
+		FastJson2JsonRedisSerializer< ?> fastJson2JsonRedisSerializer = 
+				(FastJson2JsonRedisSerializer<?>) this.fastJson2JsonRedisSerializer();
+		messageListenerAdapter.setSerializer(fastJson2JsonRedisSerializer);
+		return messageListenerAdapter;
+	}
+	
+	@Bean
+	RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+											MessageListenerAdapter userListenerAdapter,
+											MessageListenerAdapter orderListenerAdapter) {
+		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+		container.setConnectionFactory(connectionFactory);
+		container.addMessageListener(userListenerAdapter,new PatternTopic("user_topic"));
+		container.addMessageListener(orderListenerAdapter,new PatternTopic("order_topic"));
+		return container;
+	}
+	
+	
+	
+	
+	
+	
 	
 }
