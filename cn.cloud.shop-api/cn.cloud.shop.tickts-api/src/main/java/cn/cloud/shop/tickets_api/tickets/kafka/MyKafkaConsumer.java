@@ -1,7 +1,6 @@
 package cn.cloud.shop.tickets_api.tickets.kafka;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 

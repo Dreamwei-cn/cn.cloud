@@ -9,7 +9,7 @@
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
-    <result column="enabled" jdbcType="CHAR" property="enabled" />
+    <result column="enabled" jdbcType="VARCHAR" property="enabled" />
     <result column="price" jdbcType="BIGINT" property="price" />
     <result column="mader" jdbcType="VARCHAR" property="mader" />
     <result column="makeTime" jdbcType="TIMESTAMP" property="maketime" />
