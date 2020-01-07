@@ -33,7 +33,7 @@ pagehelper:
    
 eureka:  client:    service-url:      defaultZone: http://boot:boot@localhost:8761/eureka/
       
-      
+ 
       
 kafka.consumer.zookeeper.connect: 127.0.0.1:2181
 kafka.consumer.servers: 127.0.0.1:9092
